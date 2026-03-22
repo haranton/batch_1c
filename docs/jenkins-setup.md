@@ -44,3 +44,4 @@ src\1c-batch\scripts\unlock-and-dump-extension.bat "src\cfe\batch_1c" "batch_1c"
 ## 6. Проверка
 - В консоли job должен появиться шаг `Dump Extension` без ошибок.
 - При изменениях должен появиться commit вида `Автовыгрузка расширения yyyy-MM-dd_HH-mm`.
+
