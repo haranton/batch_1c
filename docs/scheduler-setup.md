@@ -7,7 +7,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File src\1c-batch\scripts\dump-ex
 
 ## 2) Регистрация ежедневной задачи
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File src\1c-batch\scripts\register-extension-dump-task.ps1 -TaskName "OneC_ExtensionDump" -At "03:00" -ExtensionName "ИМЯ_РАСШИРЕНИЯ" -ExtensionDir "src\cfe\ИМЯ_РАСШИРЕНИЯ"
+powershell -NoProfile -ExecutionPolicy Bypass -File src\1c-batch\scripts\register-extension-dump-task.ps1 -TaskName "OneC_ExtensionDump" -At "03:00" -ExtensionName "ИМЯ_РАСШИРЕНИЯ"
+```
+
+Если нужен свой каталог выгрузки:
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File src\1c-batch\scripts\register-extension-dump-task.ps1 -TaskName "OneC_ExtensionDump" -At "03:00" -ExtensionName "ИМЯ_РАСШИРЕНИЯ" -ExtensionDir "src\cfe\МОЙ_КАТАЛОГ"
 ```
 
 ## 3) Запуск задачи вручную
@@ -30,3 +35,6 @@ Unregister-ScheduledTask -TaskName "OneC_ExtensionDump" -Confirm:$false
 - режим выгрузки: `Auto` (первая выгрузка полная, далее инкрементальная);
 - если в Git нет изменений, commit/push не делает;
 - если изменения есть, делает commit и `git push origin main`.
+
+## Важно
+Если в логах ошибка вида `расширение ... не найдено`, значит передано неверное имя `-ExtensionName`.

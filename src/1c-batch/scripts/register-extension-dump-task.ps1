@@ -1,12 +1,16 @@
 ﻿param(
     [string]$TaskName = "OneC_ExtensionDump",
     [string]$At = "03:00",
-    [string]$ExtensionName = "batch_1c",
-    [string]$ExtensionDir = "src\cfe\batch_1c",
+    [Parameter(Mandatory = $true)][string]$ExtensionName,
+    [string]$ExtensionDir = "",
     [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..\.." )).Path
 )
 
 $ErrorActionPreference = "Stop"
+
+if ([string]::IsNullOrWhiteSpace($ExtensionDir)) {
+    $ExtensionDir = "src\\cfe\\$ExtensionName"
+}
 
 $scriptPath = Join-Path $PSScriptRoot "dump-extension-and-push.ps1"
 $args = "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`" -RepoRoot `"$RepoRoot`" -ExtensionName `"$ExtensionName`" -ExtensionDir `"$ExtensionDir`""
@@ -19,3 +23,5 @@ $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoi
 
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Force | Out-Null
 Write-Output "Задача $TaskName зарегистрирована. Ежедневный запуск в $At"
+Write-Output "Расширение: $ExtensionName"
+Write-Output "Каталог выгрузки: $ExtensionDir"
