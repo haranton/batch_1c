@@ -57,3 +57,6 @@ set "ONEC_PASSWORD="
 MIT License
 
 # batch_1c
+
+## Jenkins
+См. инструкцию: docs/jenkins-setup.md
