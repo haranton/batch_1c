@@ -1,2 +1,4 @@
-out/
+out/*
+!out/cfe/
+!out/cfe/**
 jenkins.env
