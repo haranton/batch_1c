@@ -1,77 +1,80 @@
 @echo off
-chcp 65001 >nul
+chcp 65001 >nul 2>&1
 setlocal enabledelayedexpansion
 
-REM ============================================================
-REM Выгрузка расширения конфигурации из базы в XML
-REM
-REM Параметры:
-REM   %1 - каталог для выгрузки XML
-REM   %2 - имя расширения
-REM   %3 - (опционально) "update" для инкрементальной выгрузки
-REM
-REM Требует: .1c-devbase.bat в текущем каталоге
-REM ============================================================
+if "%~1"=="" (
+    echo Usage: dump-extension.bat ^<XML_DIR^> [EXT_NAME] [update]
+    echo.
+    echo Examples:
+    echo   dump-extension.bat "src\cfe\test" "test"
+    echo   dump-extension.bat "src\cfe\test" "test" update
+    echo   dump-extension.bat "src\cfe\test" update
+    exit /b 1
+)
 
-REM Загружаем настройки
 if not exist ".1c-devbase.bat" (
-    echo Ошибка: не найден .1c-devbase.bat в текущем каталоге
-    echo Скопируйте .1c-devbase.bat.example в корень проекта как .1c-devbase.bat
+    echo Error: .1c-devbase.bat was not found in current directory.
+    echo Copy .1c-devbase.bat.example to project root as .1c-devbase.bat.
     exit /b 1
 )
 call .\.1c-devbase.bat
 
-if "%~2"=="" (
-    echo Использование: dump-extension.bat ^<XML_DIR^> ^<EXT_NAME^> [update]
-    echo.
-    echo Примеры:
-    echo   Полная выгрузка:         dump-extension.bat "src\cfe\МоёРасширение" "МоёРасширение"
-    echo   Инкрементальная выгрузка: dump-extension.bat "src\cfe\МоёРасширение" "МоёРасширение" update
-    exit /b 1
-)
-
 set "XML_DIR=%~1"
 set "EXT_NAME=%~2"
+set "UPDATE_ARG=%~3"
 set "UPDATE_MODE=0"
 
-if /i "%~3"=="update" (
-    set "UPDATE_MODE=1"
+if /i "%~2"=="update" (
+    set "EXT_NAME="
+    set "UPDATE_ARG=update"
 )
 
-REM Определяем тип подключения: сервер или файловая база
-if not "%ONEC_SERVER%"=="" (
-    set "IB_PARAMS=/S "%ONEC_SERVER%\%ONEC_BASE%""
-) else if not "%ONEC_FILEBASE_PATH%"=="" (
-    set "IB_PARAMS=/F "%ONEC_FILEBASE_PATH%""
-) else (
-    echo Ошибка: не указан ни сервер ^(ONEC_SERVER^), ни путь к файловой базе ^(ONEC_FILEBASE_PATH^)
+if "%EXT_NAME%"=="" set "EXT_NAME=%ONEC_EXTENSION_NAME%"
+if "%EXT_NAME%"=="" (
+    echo Error: extension name is not provided and ONEC_EXTENSION_NAME is not set.
     exit /b 1
 )
 
-REM Формируем параметры авторизации
-set "AUTH_PARAMS="
-if not "%ONEC_USER%"=="" set AUTH_PARAMS=/N"%ONEC_USER%"
-if not "%ONEC_PASSWORD%"=="" set AUTH_PARAMS=!AUTH_PARAMS! /P"%ONEC_PASSWORD%"
+if /i "%UPDATE_ARG%"=="update" set "UPDATE_MODE=1"
 
-echo Выгрузка расширения...
-echo   Результат: %XML_DIR%
-echo   Расширение: %EXT_NAME%
+if not "%ONEC_SERVER%"=="" (
+    set "IB_PARAMS=/S ""%ONEC_SERVER%\%ONEC_BASE%"""
+) else if not "%ONEC_FILEBASE_PATH%"=="" (
+    set "IB_PARAMS=/F ""%ONEC_FILEBASE_PATH%"""
+) else (
+    echo Error: neither ONEC_SERVER nor ONEC_FILEBASE_PATH is set.
+    exit /b 1
+)
+
+if not defined ONEC_PATH (
+    echo Error: ONEC_PATH is not set in .1c-devbase.bat.
+    exit /b 1
+)
+
+set "AUTH_PARAMS="
+if not "%ONEC_USER%"=="" set "AUTH_PARAMS=/N""%ONEC_USER%"""
+if not "%ONEC_PASSWORD%"=="" set "AUTH_PARAMS=!AUTH_PARAMS! /P""%ONEC_PASSWORD%"""
 
 set "UPDATE_PARAMS="
+if "%UPDATE_MODE%"=="1" set "UPDATE_PARAMS=-update"
+
+echo Dumping extension...
+echo   Output: %XML_DIR%
+echo   Extension: %EXT_NAME%
 if "%UPDATE_MODE%"=="1" (
-    set "UPDATE_PARAMS=-update"
-    echo   Режим: инкрементальная
+    echo   Mode: incremental
 ) else (
-    echo   Режим: полная
+    echo   Mode: full
 )
 
 "%ONEC_PATH%" DESIGNER !IB_PARAMS! !AUTH_PARAMS! /DisableStartupDialogs /DumpConfigToFiles "%XML_DIR%" -Extension "%EXT_NAME%" !UPDATE_PARAMS!
+set "EXIT_CODE=%ERRORLEVEL%"
 
-if %ERRORLEVEL% equ 0 (
-    echo Выгрузка завершена успешно
-) else (
-    echo Ошибка выгрузки
-    exit /b 1
+if not "%EXIT_CODE%"=="0" (
+    echo Dump failed with exit code %EXIT_CODE%.
+    exit /b %EXIT_CODE%
 )
 
+echo Dump finished successfully.
 exit /b 0
+

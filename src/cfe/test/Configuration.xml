@@ -1,43 +1,43 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <MetaDataObject xmlns="http://v8.1c.ru/8.3/MDClasses" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:cmi="http://v8.1c.ru/8.2/managed-application/cmi" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xpr="http://v8.1c.ru/8.3/xcf/predef" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.20">
-	<Configuration uuid="f1d00720-b1ca-4181-a7cd-1be1a56e4649">
+	<Configuration uuid="22f58c11-405c-4ed5-b0ee-74051abbaf1f">
 		<InternalInfo>
 			<xr:ContainedObject>
 				<xr:ClassId>9cd510cd-abfc-11d4-9434-004095e12fc7</xr:ClassId>
-				<xr:ObjectId>4368c1ef-c1fe-43b5-80f6-a04c2439cd68</xr:ObjectId>
+				<xr:ObjectId>f0783d7d-4a67-40e1-9fd0-db838878eced</xr:ObjectId>
 			</xr:ContainedObject>
 			<xr:ContainedObject>
 				<xr:ClassId>9fcd25a0-4822-11d4-9414-008048da11f9</xr:ClassId>
-				<xr:ObjectId>3f112611-6336-4de9-b058-e4d899d4c41e</xr:ObjectId>
+				<xr:ObjectId>573521ca-a2cb-4537-923d-adbf261d19ec</xr:ObjectId>
 			</xr:ContainedObject>
 			<xr:ContainedObject>
 				<xr:ClassId>e3687481-0a87-462c-a166-9f34594f9bba</xr:ClassId>
-				<xr:ObjectId>d67b50a3-fcf1-4cb5-aa61-3fb8a699c788</xr:ObjectId>
+				<xr:ObjectId>256908b7-9c08-4af9-ad0a-dda19b0cf406</xr:ObjectId>
 			</xr:ContainedObject>
 			<xr:ContainedObject>
 				<xr:ClassId>9de14907-ec23-4a07-96f0-85521cb6b53b</xr:ClassId>
-				<xr:ObjectId>f80393d6-85f1-4b2b-bdec-96ec8752ad94</xr:ObjectId>
+				<xr:ObjectId>f11258a4-7153-4c87-88af-01bbb93cd978</xr:ObjectId>
 			</xr:ContainedObject>
 			<xr:ContainedObject>
 				<xr:ClassId>51f2d5d8-ea4d-4064-8892-82951750031e</xr:ClassId>
-				<xr:ObjectId>b7bffe36-e5c5-4475-89fa-4d454ba52511</xr:ObjectId>
+				<xr:ObjectId>1a0cec87-fe4d-47f8-b1a7-95c1cbbd970f</xr:ObjectId>
 			</xr:ContainedObject>
 			<xr:ContainedObject>
 				<xr:ClassId>e68182ea-4237-4383-967f-90c1e3370bc7</xr:ClassId>
-				<xr:ObjectId>c8e4e1ad-2d95-4258-8124-77377bc1d203</xr:ObjectId>
+				<xr:ObjectId>10799e7b-b0f3-49ac-aad7-8eaa323cee22</xr:ObjectId>
 			</xr:ContainedObject>
 			<xr:ContainedObject>
 				<xr:ClassId>fb282519-d103-4dd3-bc12-cb271d631dfc</xr:ClassId>
-				<xr:ObjectId>24fa90e0-9356-4f91-8039-22e585aeca77</xr:ObjectId>
+				<xr:ObjectId>630af90c-ef41-47d4-953d-71c94096feb8</xr:ObjectId>
 			</xr:ContainedObject>
 		</InternalInfo>
 		<Properties>
 			<ObjectBelonging>Adopted</ObjectBelonging>
-			<Name>test</Name>
+			<Name>Расширение1</Name>
 			<Synonym>
 				<v8:item>
 					<v8:lang>ru</v8:lang>
-					<v8:content>Test</v8:content>
+					<v8:content>Расширение1</v8:content>
 				</v8:item>
 			</Synonym>
 			<Comment/>
@@ -66,8 +66,6 @@
 		<ChildObjects>
 			<Language>Русский</Language>
 			<Role>Расш1_ОсновнаяРоль</Role>
-			<CommonModule>Расш1_ОбщийМодуль1</CommonModule>
-			<DataProcessor>test</DataProcessor>
 		</ChildObjects>
 	</Configuration>
 </MetaDataObject>

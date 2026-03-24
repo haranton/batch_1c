@@ -2,3 +2,4 @@ out/*
 !out/cfe/
 !out/cfe/**
 jenkins.env
+src/cfe/*
